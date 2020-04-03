@@ -23,6 +23,4 @@ deploy:
   target_branch: gh-pages
   local_dir: dist/agile-metrics-frontend
   on:
-    branches:
-      only:
-        - feature/travis-ci
+    branch: feature/travis-ci
