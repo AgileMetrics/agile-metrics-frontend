@@ -14,13 +14,13 @@ before_script:
 script:
 - ng lint
 - npm run test-headless
-- ng build --prod
+- ng build --prod  --base-href https://agilemetrics.github.io/agile-metrics-frontend 
 deploy:
   edge: true
   provider: pages:git
   repo: AgileMetrics/AgileMetrics.github.io
   deploy_key: id_rsa
-  target_branch: master
-  local_dir: dist/agile-metrics-frontend
+  target_branch: gh-pages
+  local_dir: dist
   on:
     branch: feature/travis-ci
