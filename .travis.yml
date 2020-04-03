@@ -20,7 +20,7 @@ deploy:
   provider: pages:git
   repo: AgileMetrics/AgileMetrics.github.io
   deploy_key: id_rsa
-  target_branch: gh-pages
+  target_branch: master
   local_dir: dist
   on:
     branch: feature/travis-ci
