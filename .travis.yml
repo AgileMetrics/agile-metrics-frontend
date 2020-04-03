@@ -6,19 +6,15 @@ sudo: required
 branches:
   only:
   - feature/travis-ci
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
   -in id_rsa-encrypted -out id_rsa -d
-
 before_script:
 - npm install -g @angular/cli
-
 script:
 - ng lint
 - npm run test-headless
 - ng build --prod
-
 deploy:
   edge: true
   provider: pages:git
@@ -26,4 +22,3 @@ deploy:
   deploy_key: id_rsa
   target_branch: gh-pages
   local_dir: dist/agile-metrics-frontend
-  
