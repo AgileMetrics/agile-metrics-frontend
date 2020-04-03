@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "12"
+dist: eoan
+sudo: required
+branches:
+  only:
+  - feature/travis-ci
+before_script:
+  - npm install -g @angular/cli
+script:
+- ng lint
+- ng build --prod
