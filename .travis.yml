@@ -14,7 +14,7 @@ before_script:
 script:
 - ng lint
 - npm run test-headless
-- ng build --prod  --base-href https://agilemetrics.github.io/agile-metrics-frontend 
+- ng build --prod  --base-href https://agilemetrics.github.io/agile-metrics-frontend/ 
 deploy:
   edge: true
   provider: pages:git
