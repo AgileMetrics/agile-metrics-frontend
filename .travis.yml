@@ -18,7 +18,7 @@ script:
 deploy:
   edge: true
   provider: pages:git
-  repo: git@github.com:AgileMetrics/AgileMetrics.github.io.git
+  repo: AgileMetrics/AgileMetrics.github.io
   deploy_key: id_rsa
   target_branch: master
   local_dir: dist/agile-metrics-frontend
