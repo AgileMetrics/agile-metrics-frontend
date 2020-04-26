@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-notifications",
-  templateUrl: "notifications.component.html"
+  selector: 'app-notifications',
+  templateUrl: 'notifications.component.html'
 })
 export class NotificationsComponent implements OnInit {
   staticAlertClosed  = false;
@@ -21,13 +21,13 @@ export class NotificationsComponent implements OnInit {
 
       const color = Math.floor((Math.random() * 5) + 1);
 
-      switch(color){
+      switch (color){
         case 1:
         this.toastr.info('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
            disableTimeOut: true,
            closeButton: true,
            enableHtml: true,
-           toastClass: "alert alert-info alert-with-icon",
+           toastClass: 'alert alert-info alert-with-icon',
            positionClass: 'toast-' + from + '-' +  align
          });
         break;
@@ -36,7 +36,7 @@ export class NotificationsComponent implements OnInit {
            disableTimeOut: true,
            closeButton: true,
            enableHtml: true,
-           toastClass: "alert alert-success alert-with-icon",
+           toastClass: 'alert alert-success alert-with-icon',
            positionClass: 'toast-' + from + '-' +  align
          });
         break;
@@ -45,7 +45,7 @@ export class NotificationsComponent implements OnInit {
            disableTimeOut: true,
            closeButton: true,
            enableHtml: true,
-           toastClass: "alert alert-warning alert-with-icon",
+           toastClass: 'alert alert-warning alert-with-icon',
            positionClass: 'toast-' + from + '-' +  align
          });
         break;
@@ -54,19 +54,19 @@ export class NotificationsComponent implements OnInit {
            disableTimeOut: true,
            enableHtml: true,
            closeButton: true,
-           toastClass: "alert alert-danger alert-with-icon",
+           toastClass: 'alert alert-danger alert-with-icon',
            positionClass: 'toast-' + from + '-' +  align
          });
-         break;
+        break;
          case 5:
          this.toastr.show('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
             disableTimeOut: true,
             closeButton: true,
             enableHtml: true,
-            toastClass: "alert alert-primary alert-with-icon",
+            toastClass: 'alert alert-primary alert-with-icon',
             positionClass: 'toast-' + from + '-' +  align
           });
-        break;
+         break;
         default:
         break;
       }
