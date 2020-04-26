@@ -28,7 +28,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/template/scss/black-dashboard.scss",
+              "src/assets/template/css/nucleo-icons.css"
             ],
             "scripts": []
           },
