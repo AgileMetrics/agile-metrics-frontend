@@ -12,7 +12,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class NavbarComponent implements OnInit, OnDestroy {
   private listTitles: any[];
   location: Location;
-  mobile_menu_visible: any = 0;
+  mobileMenuVisible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
 
@@ -47,10 +47,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     this.router.events.subscribe(event => {
       this.sidebarClose();
-      var $layer: any = document.getElementsByClassName('close-layer')[0];
+      const $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
-        this.mobile_menu_visible = 0;
+        this.mobileMenuVisible = 0;
       }
     });
   }
@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       mainPanel.style.position = 'fixed';
     }
 
-    setTimeout(function() {
+    setTimeout(() => {
       toggleButton.classList.add('toggled');
     }, 500);
 
@@ -93,7 +93,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     ) as HTMLElement;
 
     if (window.innerWidth < 991) {
-      setTimeout(function() {
+      setTimeout(() => {
         mainPanel.style.position = '';
       }, 500);
     }
@@ -104,6 +104,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // const toggleButton = this.toggleButton;
     // const html = document.getElementsByTagName('html')[0];
     const $toggle = document.getElementsByClassName('navbar-toggler')[0];
+    let $layer;
 
     if (this.sidebarVisible === false) {
       this.sidebarOpen();
@@ -112,23 +113,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     const html = document.getElementsByTagName('html')[0];
 
-    if (this.mobile_menu_visible == 1) {
+    if (this.mobileMenuVisible === 1) {
       // $('html').removeClass('nav-open');
       html.classList.remove('nav-open');
       if ($layer) {
         $layer.remove();
       }
-      setTimeout(function() {
+      setTimeout(() => {
         $toggle.classList.remove('toggled');
       }, 400);
 
-      this.mobile_menu_visible = 0;
+      this.mobileMenuVisible = 0;
     } else {
-      setTimeout(function() {
+      setTimeout(() => {
         $toggle.classList.add('toggled');
       }, 430);
 
-      var $layer = document.createElement('div');
+      $layer = document.createElement('div');
       $layer.setAttribute('class', 'close-layer');
 
       if (html.querySelectorAll('.main-panel')) {
@@ -139,7 +140,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           .appendChild($layer);
       }
 
-      setTimeout(function() {
+      setTimeout(() => {
         $layer.classList.add('visible');
       }, 100);
 
@@ -148,14 +149,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         html.classList.remove('nav-open');
         this.mobile_menu_visible = 0;
         $layer.classList.remove('visible');
-        setTimeout(function() {
+        setTimeout(() => {
           $layer.remove();
           $toggle.classList.remove('toggled');
         }, 400);
       }.bind(this);
 
       html.classList.add('nav-open');
-      this.mobile_menu_visible = 1;
+      this.mobileMenuVisible = 1;
     }
   }
 
@@ -164,10 +165,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (titlee.charAt(0) === '#') {
       titlee = titlee.slice(1);
     }
-
-    for (let item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
-        return this.listTitles[item].title;
+    for (const item of this.listTitles) {
+      if (item.path === titlee) {
+        return item.title;
       }
     }
     return 'Dashboard';

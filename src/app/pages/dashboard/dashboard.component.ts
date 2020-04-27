@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    let gradientChartOptionsConfigurationWithTooltipBlue: any = {
+    const gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    let gradientChartOptionsConfigurationWithTooltipPurple: any = {
+    const gradientChartOptionsConfigurationWithTooltipPurple: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -114,7 +114,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    let gradientChartOptionsConfigurationWithTooltipRed: any = {
+    const gradientChartOptionsConfigurationWithTooltipRed: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    let gradientChartOptionsConfigurationWithTooltipOrange: any = {
+    const gradientChartOptionsConfigurationWithTooltipOrange: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    let gradientChartOptionsConfigurationWithTooltipGreen: any = {
+    const gradientChartOptionsConfigurationWithTooltipGreen: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -259,7 +259,7 @@ export class DashboardComponent implements OnInit {
     };
 
 
-    let gradientBarChartConfiguration: any = {
+    const gradientBarChartConfiguration: any = {
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -310,13 +310,13 @@ export class DashboardComponent implements OnInit {
     this.canvas = document.getElementById('chartLineRed');
     this.ctx = this.canvas.getContext('2d');
 
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+    let gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
     gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
     gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); // red colors
 
-    var data = {
+    let data = {
       labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       datasets: [{
         label: 'Data',
@@ -337,7 +337,7 @@ export class DashboardComponent implements OnInit {
       }]
     };
 
-    var myChart = new Chart(this.ctx, {
+    let myChart = new Chart(this.ctx, {
       type: 'line',
       data,
       options: gradientChartOptionsConfigurationWithTooltipRed
@@ -348,13 +348,13 @@ export class DashboardComponent implements OnInit {
     this.ctx = this.canvas.getContext('2d');
 
 
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+    gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
     gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); // green colors
     gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); // green colors
 
-    var data = {
+    data = {
       labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
       datasets: [{
         label: 'My First dataset',
@@ -375,7 +375,7 @@ export class DashboardComponent implements OnInit {
       }]
     };
 
-    var myChart = new Chart(this.ctx, {
+    myChart = new Chart(this.ctx, {
       type: 'line',
       data,
       options: gradientChartOptionsConfigurationWithTooltipGreen
@@ -384,7 +384,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-    let chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const chartLabels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     this.datasets = [
       [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
       [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
@@ -397,16 +397,16 @@ export class DashboardComponent implements OnInit {
     this.canvas = document.getElementById('chartBig1');
     this.ctx = this.canvas.getContext('2d');
 
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+    gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
     gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
     gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); // red colors
 
-    let config = {
+    const config = {
       type: 'line',
       data: {
-        labels: chart_labels,
+        labels: chartLabels,
         datasets: [{
           label: 'My First dataset',
           fill: true,
@@ -432,14 +432,14 @@ export class DashboardComponent implements OnInit {
 
     this.canvas = document.getElementById('CountryChart');
     this.ctx  = this.canvas.getContext('2d');
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+    gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
     gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
     gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); // blue colors
 
 
-    var myChart = new Chart(this.ctx, {
+    myChart = new Chart(this.ctx, {
       type: 'bar',
       responsive: true,
       legend: {

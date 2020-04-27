@@ -15,10 +15,10 @@ export class AdminLayoutComponent implements OnInit {
 
     this.sidebarColor = color;
 
-    if (sidebar != undefined){
+    if (sidebar !== undefined){
         sidebar.setAttribute('data', color);
     }
-    if (mainPanel != undefined){
+    if (mainPanel !== undefined){
         mainPanel.setAttribute('data', color);
     }
   }
