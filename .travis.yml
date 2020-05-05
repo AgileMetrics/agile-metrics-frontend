@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- '12'
+dist: eoan
+sudo: required
+before_install:
+- openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
+  -in id_rsa-encrypted -out id_rsa -d
+before_script:
+- npm install -g @angular/cli
+script:
+- ng lint
+- npm run test-headless
+- ng build --prod  --base-href https://agilemetrics.github.io/agile-metrics-frontend/ 
+deploy:
+  edge: true
+  provider: pages:git
+  repo: AgileMetrics/AgileMetrics.github.io
+  deploy_key: id_rsa
+  target_branch: master
+  local_dir: dist
+  on:
+    branch: master
