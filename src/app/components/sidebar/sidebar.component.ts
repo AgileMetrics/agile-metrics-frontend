@@ -14,6 +14,12 @@ export const ROUTES: RouteInfo[] = [
     class: ''
   },
   {
+    path: '/cycletime',
+    title: 'Cicletime',
+    icon: 'icon-chart-bar-32',
+    class: ''
+  },
+  {
     path: '/icons',
     title: 'Icons',
     icon: 'icon-atom',
