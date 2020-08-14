@@ -6,6 +6,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UserComponent } from '../../pages/user/user.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
+import { CycleTimeComponent } from '../../pages/cycletime/component/cycletime.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -14,4 +15,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'typography', component: TypographyComponent },
+  { path: 'cycletime', component: CycleTimeComponent },
 ];
