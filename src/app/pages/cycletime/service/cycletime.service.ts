@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import * as moment from 'moment'
 
 @Injectable({
@@ -15,20 +15,18 @@ export default class CycleTimeService {
 
     public getCycleTimeForScatterPlot() {
         return this.httpClient.get(this.SERVER_URL)
-            .pipe(map((cicleTimeArray: Array<any>) => this.transformCycleTimeToScatterPlotItem(cicleTimeArray)),
-                catchError(this.handleError))
+            .pipe(map((cycleTimeArray: Array<any>) => this.transformCycleTimeToScatterPlotItem(cycleTimeArray)),
+                catchError(CycleTimeService.handleError))
     }
 
-    private transformCycleTimeToScatterPlotItem(cicleTimeArray: Array<any>): Array<any> {
-        return cicleTimeArray.map(cicleTimeItem => {
-            const starDate: moment.Moment = moment.utc(cicleTimeItem.startDate, 'YYYY-MM-DD')
-            const endDate: moment.Moment = moment.utc(cicleTimeItem.endDate, 'YYYY-MM-DD')
-            const cycleTimeDays = endDate.diff(starDate, 'days')
-            return [endDate.valueOf(), cycleTimeDays]
+    private transformCycleTimeToScatterPlotItem(cycleTimeArray: Array<any>): Array<any> {
+        return cycleTimeArray.map(cycleTimeItem => {
+            const completionDate: moment.Moment = moment.utc(cycleTimeItem.completionDate, 'YYYY-MM-DD')
+            return [completionDate.valueOf(), cycleTimeItem.cycleTimeInDays]
         })
     }
 
-    private handleError(error: HttpErrorResponse) {
+    private static handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);

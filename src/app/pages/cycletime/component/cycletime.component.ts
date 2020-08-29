@@ -1,5 +1,4 @@
-
-import { Component, OnInit, OnDestroy, Injectable } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import CycleTimeService from '../service/cycletime.service'
 import * as Highcharts from 'highcharts';
 
@@ -16,7 +15,6 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         console.log("init highchart component")
         this.cycleTimeService.getCycleTimeForScatterPlot().subscribe((scatterData: Array<any>) => {
-            //const scatterData = [[Date.UTC(2010, 1, 1), 3], [Date.UTC(2010, 1, 1), 3], [Date.UTC(2010, 1, 10), 10], [Date.UTC(2010, 1, 6), 12]]
             this.scatterChart(scatterData)
         })
     }
@@ -27,11 +25,11 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
                 zoomType: 'xy'
             },
             title: {
-                text: 'Scatter plot example'
+                text: 'Cycle Time Scatterplot'
             },
             xAxis: {
                 title: {
-                    text: "Date",
+                    text: "Completion Date",
                 },
                 showFirstLabel: true,
                 showLastLabel: true,
@@ -52,7 +50,7 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
             series: [
                 {
                     type: "scatter",
-                    name: "Cycle time",
+                    name: "Cycle Time",
                     color: 'rgba(40, 40, 255, .6)',
                     data: scatterData
                 }
@@ -73,7 +71,7 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
 
                         pointFormatter() {
                             const dateFormatted = Highcharts.dateFormat('%d-%m-%Y', this.x)
-                            return `Done Date: ${dateFormatted} <br> Cycle Time: ${this.y} days`
+                            return `Completion Date: ${dateFormatted} <br> Cycle Time: ${this.y} days`
                         }
                     }
 
@@ -86,4 +84,3 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
         console.log("destroy highchart component")
     }
 }
-
