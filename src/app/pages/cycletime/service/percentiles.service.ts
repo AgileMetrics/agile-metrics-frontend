@@ -2,32 +2,35 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import * as moment from 'moment'
+import {PercentilesDto} from "../component/percentiles.dto";
 
 @Injectable({
     providedIn: 'root'
 })
-export default class CycleTimeService {
+export default class PercentilesService {
 
-    SERVER_URL: string = "http://localhost:8080/api/v1/cycle-time-scatterplot";
+    SERVER_URL: string = "http://localhost:8080/api/v1/percentiles";
 
     constructor(private httpClient: HttpClient) { }
 
-    public getCycleTimeForScatterPlot(): Observable<Array<any>> {
+    public getPercentiles(): Observable<PercentilesDto> {
         return this.httpClient.get(this.SERVER_URL)
             .pipe(
-                map((cycleTimeArray: Array<any>) => this.transformCycleTimeToScatterPlotItem(cycleTimeArray)),
-                catchError(this.handleError))
+              map((percentiles: any) => this.buildPercentilesDto(percentiles)),
+              catchError(this.handleError)
+            )
     }
 
-    private transformCycleTimeToScatterPlotItem(cycleTimeArray: Array<any>): Array<any> {
-        return cycleTimeArray.map(cycleTimeItem => {
-            const completionDate: moment.Moment = moment.utc(cycleTimeItem.completionDate, 'YYYY-MM-DD')
-            return [completionDate.valueOf(), cycleTimeItem.cycleTimeInDays]
-        })
+    private buildPercentilesDto(percentiles: any): PercentilesDto {
+      return new PercentilesDto(
+        percentiles.percentile50InDays,
+        percentiles.percentile70InDays,
+        percentiles.percentile85InDays,
+        percentiles.percentile95InDays
+      )
     }
 
-    private handleError(error: HttpErrorResponse) {
+    private handleError(error: HttpErrorResponse): Observable<PercentilesDto> {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);
@@ -37,6 +40,6 @@ export default class CycleTimeService {
             console.error(`Backend returned code ${error.status} body was: ${error.error}`);
         }
         // return a default value
-        return of([])
+        return of(new PercentilesDto(0, 0, 0, 0))
     }
 }

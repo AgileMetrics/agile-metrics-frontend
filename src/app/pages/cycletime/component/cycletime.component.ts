@@ -1,6 +1,11 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
-import CycleTimeService from '../service/cycletime.service'
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import CycleTimeService from '../service/cycletime.service';
+import PercentilesService from '../service/percentiles.service';
+import {CycleTimeDto} from './cycletime.dto';
 import * as Highcharts from 'highcharts';
+import {forkJoin} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PercentilesDto} from "./percentiles.dto";
 
 @Component({
     selector: 'cycletime-component',
@@ -9,16 +14,29 @@ import * as Highcharts from 'highcharts';
 })
 export class CycleTimeComponent implements OnInit, OnDestroy {
 
-    constructor(private cycleTimeService: CycleTimeService) {
+    constructor(private cycleTimeService: CycleTimeService,
+                private percentilesService: PercentilesService) {
         console.log("construct highchart component")
     }
     ngOnInit() {
         console.log("init highchart component")
-        this.cycleTimeService.getCycleTimeForScatterPlot().subscribe((scatterData: Array<any>) => {
-            this.scatterChart(scatterData)
-        })
+        const observables = [
+          this.cycleTimeService.getCycleTimeForScatterPlot(),
+          this.percentilesService.getPercentiles()
+        ]
+
+        forkJoin(observables)
+          .pipe(
+            map(([cycleTimes, percentiles]) => {
+              return new CycleTimeDto(cycleTimes as Array<any>, percentiles as PercentilesDto)
+            })
+          ).subscribe(
+            (scatterData: CycleTimeDto) => this.printCycleTimeScatterplot(scatterData)
+          );
+
     }
-    scatterChart(scatterData: Array<any>) {
+
+    private printCycleTimeScatterplot(scatterData: CycleTimeDto) {
         Highcharts.chart('scatter-container', {
             chart: {
                 type: 'scatter',
@@ -43,16 +61,51 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
             },
             yAxis: {
                 title: {
-                    text: 'Days',
-
-                }
+                    text: 'Days'
+                },
+                labels: {
+                  format: '{value} days'
+                },
+                plotLines: [{
+                  color: '#2EC74E',
+                  dashStyle: 'Dot',
+                  width: 2,
+                  value: scatterData.percentiles.percentile70InDays,
+                  label: {
+                    align: 'right',
+                    style: {
+                      color: '#2EC74E',
+                      fontWeight: 'bold'
+                    },
+                    text: '70% Percentile: ' + scatterData.percentiles.percentile70InDays + ' days',
+                    x: -5
+                  },
+                  zIndex: 3
+                },
+                  {
+                    color: '#3DA954',
+                    dashStyle: 'Dot',
+                    width: 2,
+                    value: scatterData.percentiles.percentile85InDays,
+                    label: {
+                      align: 'right',
+                      style: {
+                        color: '#3DA954',
+                        fontWeight: 'bold'
+                      },
+                      text: '85% Percentile: ' + scatterData.percentiles.percentile85InDays + ' days',
+                      x: -5
+                    },
+                    zIndex: 3
+                  }
+                ]
             },
             series: [
                 {
                     type: "scatter",
                     name: "Cycle Time",
                     color: 'rgba(40, 40, 255, .6)',
-                    data: scatterData
+                    data: scatterData.cycleTimes
                 }
             ],
             plotOptions: {
