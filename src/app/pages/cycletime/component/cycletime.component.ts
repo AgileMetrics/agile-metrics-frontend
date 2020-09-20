@@ -1,22 +1,22 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import CycleTimeService from '../service/cycletime.service'
+import CycleTimeService from '../service/cycletime.service';
 import * as Highcharts from 'highcharts';
 
 @Component({
-    selector: 'cycletime-component',
+    selector: 'app-cycletime-component',
     templateUrl: './cycletime.component.html',
     styleUrls: ['./cycletime.component.css']
 })
 export class CycleTimeComponent implements OnInit, OnDestroy {
 
     constructor(private cycleTimeService: CycleTimeService) {
-        console.log("construct highchart component")
+        console.log('construct highchart component');
     }
     ngOnInit() {
-        console.log("init highchart component")
+        console.log('init highchart component');
         this.cycleTimeService.getCycleTimeForScatterPlot().subscribe((scatterData: Array<any>) => {
-            this.scatterChart(scatterData)
-        })
+            this.scatterChart(scatterData);
+        });
     }
     scatterChart(scatterData: Array<any>) {
         Highcharts.chart('scatter-container', {
@@ -29,7 +29,7 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
             },
             xAxis: {
                 title: {
-                    text: "Completion Date",
+                    text: 'Completion Date',
                 },
                 showFirstLabel: true,
                 showLastLabel: true,
@@ -37,8 +37,8 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
                 endOnTick: true,
                 type: 'datetime',
                 dateTimeLabelFormats: {
-                    day: "%e-%b-%y",
-                    month: "%b-%y"
+                    day: '%e-%b-%y',
+                    month: '%b-%y'
                 }
             },
             yAxis: {
@@ -49,8 +49,8 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
             },
             series: [
                 {
-                    type: "scatter",
-                    name: "Cycle Time",
+                    type: 'scatter',
+                    name: 'Cycle Time',
                     color: 'rgba(40, 40, 255, .6)',
                     data: scatterData
                 }
@@ -70,17 +70,17 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
                         headerFormat: '<b>{series.name}</b><br>',
 
                         pointFormatter() {
-                            const dateFormatted = Highcharts.dateFormat('%d-%m-%Y', this.x)
-                            return `Completion Date: ${dateFormatted} <br> Cycle Time: ${this.y} days`
+                            const dateFormatted = Highcharts.dateFormat('%d-%m-%Y', this.x);
+                            return `Completion Date: ${dateFormatted} <br> Cycle Time: ${this.y} days`;
                         }
                     }
 
                 }
             },
-        }, null)
+        }, null);
 
     }
     ngOnDestroy() {
-        console.log("destroy highchart component")
+        console.log('destroy highchart component');
     }
 }
