@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/cycletime',
-    title: 'Cicletime',
+    title: 'Cycle Time',
     icon: 'icon-chart-bar-32',
     class: ''
   },
@@ -66,9 +66,7 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {
-    if (window.innerWidth > 991) {
-      return false;
-    }
-    return true;
+    return window.innerWidth <= 991;
+
   }
 }
