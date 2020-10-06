@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {PercentilesDto} from "../component/percentiles.dto";
+import {PercentilesDto} from '../component/percentiles.dto';
 
 @Injectable({
     providedIn: 'root'
 })
 export default class PercentilesService {
 
-    SERVER_URL: string = "http://localhost:8080/api/v1/percentiles";
+    SERVER_URL = 'http://localhost:8080/api/v1/percentiles';
 
     constructor(private httpClient: HttpClient) { }
 
@@ -18,7 +18,7 @@ export default class PercentilesService {
             .pipe(
               map((percentiles: any) => this.buildPercentilesDto(percentiles)),
               catchError(this.handleError)
-            )
+            );
     }
 
     private buildPercentilesDto(percentiles: any): PercentilesDto {
@@ -27,7 +27,7 @@ export default class PercentilesService {
         percentiles.percentile70InDays,
         percentiles.percentile85InDays,
         percentiles.percentile95InDays
-      )
+      );
     }
 
     private handleError(error: HttpErrorResponse): Observable<PercentilesDto> {
@@ -40,6 +40,6 @@ export default class PercentilesService {
             console.error(`Backend returned code ${error.status} body was: ${error.error}`);
         }
         // return a default value
-        return of(new PercentilesDto(0, 0, 0, 0))
+        return of(new PercentilesDto(0, 0, 0, 0));
     }
 }

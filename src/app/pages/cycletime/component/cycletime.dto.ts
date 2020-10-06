@@ -1,4 +1,4 @@
-import {PercentilesDto} from "./percentiles.dto";
+import {PercentilesDto} from './percentiles.dto';
 
 export class CycleTimeDto {
   cycleTimes: Array<any>;
