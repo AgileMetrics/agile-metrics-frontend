@@ -43,10 +43,11 @@ export class CycleTimeComponent implements OnInit, OnDestroy {
     Highcharts.chart('scatter-container', {
       chart: {
         type: 'scatter',
+        height: (7 / 16 * 100) + '%', // 16:7 ratio
         zoomType: 'xy'
       },
       title: {
-        text: 'Cycle Time Scatterplot'
+        text: ''
       },
       xAxis: {
         title: {
